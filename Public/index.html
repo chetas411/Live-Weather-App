@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/c1d964208a.js" crossorigin="anonymous"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <title>Live Weather</title>
+  </head>
+  <body>
+    <div id="card">
+      <div id="top">
+        <i id="weatherIcon" class="animate__animated animate__pulse animate__infinite fas fa-sun"></i>
+      </div>
+      <div id="info">
+        <div class="sm-card">
+          <h1 id="location"><i class="animate__animated animate__flash animate__infinite animate__slow fas fa-street-view"></i>  {%location%},{%country%}</h1>
+          <p id="datetime">{%datetime%}</p>
+        </div>
+        <div class="sm-card">
+          <h1 id="temp">{%tempVal%}&deg;C</h1>
+          <p>Min {%minTemp%}&deg;C |  Max {%maxTemp%}&deg;C</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var weather = "{%weather%}"
+    var classname = 'sun';
+    var color = '#f2e07d';
+    switch (weather) {
+      case 'Clear':{
+        classname = 'sun';
+        color = '#f2e07d';
+      }
+        break;
+      case 'Clouds':{
+        classname = 'cloud';
+        color = "#e0dcdc";
+      }
+        break;
+      case 'Smoke':{
+        classname = 'smog';
+        color = '#dddddd';
+      }
+        break;
+      case 'Rain':{
+        classname = 'cloud-rain';
+        color = '#549ba6';
+      }
+        break;
+      default: {
+        classname = 'cloud-sun';
+        color = '#f1db87de';
+      }
+        break;
+    }
+    document.querySelector('#weatherIcon').className = `animate__animated animate__pulse animate__infinite fas fa-${classname}`;
+    document.querySelector('#weatherIcon').style.color = color;
+    console.log(weather);
+    var weekdays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    var day = weekdays[new Date().getDay()-1];
+    var date = new Date().toLocaleDateString();
+    var time = new Date().toLocaleTimeString();
+    var dateTime = `${day} | ${date} | ${time}`
+    document.querySelector('#datetime').innerText = dateTime;
+  </script>
+</html>
